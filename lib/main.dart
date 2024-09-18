@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wish_list/wish.dart';
 
 import 'add_wish_screen.dart';
+import 'database_helper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,13 +31,21 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
-  List<Wish> wishList = [
-    Wish(title: "terminar minha pos", date: "junho/2025", importance: "alta"),
-    Wish(
-        title: "terminar trabalho de dm3",
-        date: "setembro/2024",
-        importance: "critica")
-  ];
+  List<Wish> wishList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWishes();
+  }
+
+  void _loadWishes() async {
+    DatabaseHelper helper = DatabaseHelper.instance;
+    List<Map<String, dynamic>> wishes = await helper.getAllWishes();
+    setState(() {
+      wishList = wishes.map((e) => Wish.fromMap(e)).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +60,7 @@ class _WishListScreenState extends State<WishListScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => AddWishScreen()),
               ).then((_) {
-                // _loadWishes(); Reload list after adding new wish
+                 _loadWishes();
               });
             },
           ),
