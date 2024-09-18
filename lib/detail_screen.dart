@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wish_list/utils.dart';
 import 'package:wish_list/wish.dart';
 
 import 'database_helper.dart';
@@ -43,6 +44,7 @@ class DetailScreen extends StatelessWidget {
                   icon: const Icon(Icons.delete, size: 36, color: Colors.red),
                   onPressed: () {
                     DatabaseHelper.instance.deleteWish(wish.id!);
+                    showToast("Desejo excluído com sucesso!");
                     Navigator.pop(context, true);
                   },
                 ),

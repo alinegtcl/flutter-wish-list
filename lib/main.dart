@@ -55,32 +55,56 @@ class _WishListScreenState extends State<WishListScreen> {
         title: const Text('Lista de Desejos'),
       ),
       body: wishList.isEmpty
-          ? const Center(
-              child: Text(
-                'Você não tem desejos cadastrados.',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Você não tem desejos cadastrados.',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20), // Espaço entre o texto e a imagem
+                  Icon(
+                    Icons.hourglass_empty,
+                    size: 64,
+                    color: Colors.grey[400], // Cor do ícone
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Não perca tempo, adicione um desejo!',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
               ),
             )
           : ListView.builder(
+              padding: const EdgeInsets.all(16.0),
               itemCount: wishList.length,
               itemBuilder: (context, index) {
                 final wish = wishList[index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 16.0),
+                  elevation: 4,
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: ListTile(
                     title: Text(
                       wish.title,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                     ),
                     subtitle: Text(
-                        'Até ${wish.date} - Prioridade: ${wish.importance}'),
+                      'Até ${wish.date} - Prioridade: ${wish.importance}',
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       Navigator.push(
                         context,
