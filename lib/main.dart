@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:wish_list/wish.dart';
 
+import 'add_wish_screen.dart';
+
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: WishListScreen(),
+      home: const WishListScreen(),
     );
   }
 }
@@ -27,10 +31,9 @@ class WishListScreen extends StatefulWidget {
 
 class _WishListScreenState extends State<WishListScreen> {
   List<Wish> wishList = [
-    Wish(title: "terminar minha pos",
-        date: "junho/2025",
-        importance: "alta"),
-    Wish(title: "terminar trabalho de dm3",
+    Wish(title: "terminar minha pos", date: "junho/2025", importance: "alta"),
+    Wish(
+        title: "terminar trabalho de dm3",
         date: "setembro/2024",
         importance: "critica")
   ];
@@ -39,12 +42,17 @@ class _WishListScreenState extends State<WishListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de Desejos'),
+        title: const Text('Lista de Desejos'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              // Navegar para adição
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddWishScreen()),
+              ).then((_) {
+                // _loadWishes(); Reload list after adding new wish
+              });
             },
           ),
         ],
