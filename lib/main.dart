@@ -3,6 +3,7 @@ import 'package:wish_list/wish.dart';
 
 import 'add_wish_screen.dart';
 import 'database_helper.dart';
+import 'detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,32 +53,60 @@ class _WishListScreenState extends State<WishListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lista de Desejos'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddWishScreen()),
-              ).then((_) {
-                 _loadWishes();
-              });
-            },
-          ),
-        ],
       ),
-      body: ListView.builder(
-        itemCount: wishList.length,
-        itemBuilder: (context, index) {
-          final wish = wishList[index];
-          return ListTile(
-            title: Text(wish.title),
-            subtitle: Text('${wish.date} - Importância: ${wish.importance}'),
-            onTap: () {
-              // Navegar para detalhes ou exclusão
-            },
-          );
+      body: wishList.isEmpty
+          ? const Center(
+              child: Text(
+                'Você não tem desejos cadastrados.',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : ListView.builder(
+              itemCount: wishList.length,
+              itemBuilder: (context, index) {
+                final wish = wishList[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  child: ListTile(
+                    title: Text(
+                      wish.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                        'Até ${wish.date} - Prioridade: ${wish.importance}'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetailScreen(wish: wish)),
+                      ).then((value) {
+                        if (value == true) {
+                          _loadWishes();
+                        }
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddWishScreen()),
+          ).then((_) {
+            _loadWishes();
+          });
         },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.add, size: 30),
       ),
     );
   }
