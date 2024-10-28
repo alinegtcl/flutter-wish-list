@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:wish_list/wish.dart';
 
 import 'add_wish_screen.dart';
-import 'database_helper.dart';
 import 'detail_screen.dart';
+import 'firestore_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,10 +45,10 @@ class _WishListScreenState extends State<WishListScreen> {
   }
 
   void _loadWishes() async {
-    DatabaseHelper helper = DatabaseHelper.instance;
-    List<Map<String, dynamic>> wishes = await helper.getAllWishes();
+    FirestoreService service = FirestoreService();
+    List<Wish> wishes = await service.getAllWishes();
     setState(() {
-      wishList = wishes.map((e) => Wish.fromMap(e)).toList();
+      wishList = wishes;
     });
   }
 

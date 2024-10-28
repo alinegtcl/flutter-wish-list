@@ -5,8 +5,14 @@ class FirestoreService {
   final CollectionReference _wishlistCollection =
       FirebaseFirestore.instance.collection('wishlist');
 
-  Future<void> addWish(Wish wish) async {
-    await _wishlistCollection.add(wish.toMap());
+  Future<void> addWish(String title, String date, String importance) async {
+    await _wishlistCollection.add(
+      {
+        'title': title,
+        'date': date,
+        'importance': importance,
+      }
+    );
   }
 
   Future<List<Wish>> getAllWishes() async {

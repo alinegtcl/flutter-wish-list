@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wish_list/firestore_service.dart';
 import 'package:wish_list/utils.dart';
-import 'package:wish_list/wish.dart';
 
 class AddWishScreen extends StatelessWidget {
   final TextEditingController _titleController = TextEditingController();
@@ -51,12 +50,8 @@ class AddWishScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    final wish = Wish(
-                      title: _titleController.text,
-                      date: _dateController.text,
-                      importance: _importanceController.text,
-                    );
-                    FirestoreService().addWish(wish);
+                    FirestoreService().addWish(_titleController.text,
+                        _dateController.text, _importanceController.text);
                     showToast("Desejo adicionado com sucesso!");
                     Navigator.pop(context);
                   }

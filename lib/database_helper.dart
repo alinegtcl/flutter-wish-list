@@ -46,7 +46,7 @@ class DatabaseHelper {
     return await db!.query(table);
   }
 
-  Future<int> deleteWish(int id) async {
+  Future<int> deleteWish(String id) async {
     Database? db = await instance.database;
     return await db!.delete(table, where: 'id = ?', whereArgs: [id]);
   }
