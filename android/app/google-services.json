@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "351054324098",
+    "project_id": "flutterwishlist-68770",
+    "storage_bucket": "flutterwishlist-68770.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351054324098:android:b44a536451a4a4bb1bef9b",
+        "android_client_info": {
+          "package_name": "com.luisi.tolentino.wish_list"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD--TIwvbleK73xhA8t3b0bVzfg79uUeG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
